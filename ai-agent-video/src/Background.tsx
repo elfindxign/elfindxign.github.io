@@ -2,7 +2,9 @@ import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from 'remoti
 import {colors} from './theme';
 
 // Slowly drifting glow blobs that stay behind every scene.
-export const Background = () => {
+type Tint = {readonly a?: string; readonly b?: string};
+
+export const Background = ({a = colors.violet, b = colors.cyan}: Tint) => {
   const frame = useCurrentFrame();
   const {durationInFrames} = useVideoConfig();
   const t = frame / durationInFrames;
@@ -15,7 +17,7 @@ export const Background = () => {
           width: 1100,
           height: 1100,
           borderRadius: '50%',
-          background: `radial-gradient(circle, ${colors.violet}55, transparent 65%)`,
+          background: `radial-gradient(circle, ${a}55, transparent 65%)`,
           left: interpolate(t, [0, 1], [-400, 200]),
           top: interpolate(t, [0, 1], [-200, 500]),
         }}
@@ -26,7 +28,7 @@ export const Background = () => {
           width: 1000,
           height: 1000,
           borderRadius: '50%',
-          background: `radial-gradient(circle, ${colors.cyan}40, transparent 65%)`,
+          background: `radial-gradient(circle, ${b}40, transparent 65%)`,
           right: interpolate(t, [0, 1], [-450, 50]),
           bottom: interpolate(t, [0, 1], [-200, 300]),
         }}
@@ -42,7 +44,7 @@ export const Background = () => {
   );
 };
 
-export const ProgressBar = () => {
+export const ProgressBar = ({a = colors.violet, b = colors.cyan}: Tint) => {
   const frame = useCurrentFrame();
   const {durationInFrames} = useVideoConfig();
   return (
@@ -62,7 +64,7 @@ export const ProgressBar = () => {
         style={{
           height: '100%',
           width: `${interpolate(frame, [0, durationInFrames - 1], [0, 100])}%`,
-          backgroundImage: `linear-gradient(90deg, ${colors.violet}, ${colors.cyan})`,
+          backgroundImage: `linear-gradient(90deg, ${a}, ${b})`,
         }}
       />
     </div>
