@@ -1,6 +1,8 @@
+import {Audio} from '@remotion/media';
 import {linearTiming, TransitionSeries} from '@remotion/transitions';
 import {fade} from '@remotion/transitions/fade';
 import {slide} from '@remotion/transitions/slide';
+import {staticFile} from 'remotion';
 import {Background, ProgressBar} from '../Background';
 import {esg} from './esgTheme';
 import {EsgDefinition, EsgHook, EsgOutro, EsgWhy, Environment, Governance, Social} from './EsgScenes';
@@ -46,5 +48,7 @@ export const EsgVideo = () => (
       </TransitionSeries.Sequence>
     </TransitionSeries>
     <ProgressBar a={esg.e} b={esg.s} />
+    {/* Original synthesized track (fade-in/out baked in), see public/esg-bgm.mp3 */}
+    <Audio name="Background music" src={staticFile('esg-bgm.mp3')} volume={0.6} />
   </>
 );
